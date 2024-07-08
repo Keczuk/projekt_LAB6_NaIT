@@ -37,13 +37,19 @@ def load_and_validate_json(file_path):
 
     return data
 
+
+def save_to_json(data, file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
 def main():
-    parser = argparse.ArgumentParser(description='Opis_kiedys_dodac')
+    parser = argparse.ArgumentParser(description='Zweryfikuj JSONA')
     parser.add_argument('--plik', type=str, help='Ścieżka do pliku JSON', required=True)
+    parser.add_argument('--wyjscie', type=str, help='Ścieżka do zapisu pliku JSON', required=True)
     args = parser.parse_args()
     data = load_and_validate_json(args.plik)
-    if data:
-        print(f'Wczytane dane: {data}')
+    save_to_json(data, args.wyjscie)
+    print(f'Dane zapisane do: {args.wyjscie}')
 
 if __name__ == "__main__":
     main()
